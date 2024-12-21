@@ -1,36 +1,39 @@
 import numpy as np
-from neural_network  import Dense,Neural_network
+from new_system import Dense,Neural_network
 
-dense1=Dense(length=5)
-dense2=Dense(length=2)
+dense1=Dense(
+    layer_number=1,
+    prev_layer_length=2,
+    layer_length=3,
+    activation="sigmoid",
 
-nn=Neural_network(dense1,dense2,input_num=3)
+)
 
-inputs = np.array([
-    [0, 0, 0],
-    [0, 0, 1],
-    [0, 1, 0],
-    [0, 1, 1],
-    [1, 0, 0],
-    [1, 0, 1],
-    [1, 1, 0],
-    [1, 1, 1]
+dense2=Dense(
+    layer_number=2,
+    prev_layer_length=3,
+    layer_length=1,
+    activation="sigmoid",
+)
+
+nn=Neural_network(dense1,dense2,epoch=100,learning_rate=1)
+
+test_value=np.array([1,0])
+
+input_values=np.array([
+    [0,0],
+    [0,1],
+    [1,0],
+    [1,1],
 ])
-outputs = np.array([
-    [0, 1],
-    [1, 0],
-    [1, 0],
-    [0, 1],
-    [1, 0],
-    [0, 1],
-    [0, 1],
-    [1, 1]
+
+expected_values=np.array([
+    [0],
+    [1],
+    [1],
+    [0],
 ])
 
+nn.learn(input_values,expected_values)
 
-nn.learn(inputs,outputs)
-
-# Test the neural network
-for i in range(len(inputs)):
-    output = nn.forward_propagation(inputs[i].reshape(1, -1))
-    print(f"Input: {inputs[i]}, Predicted: {np.round(output)}, Actual: {outputs[i]}")
+print(nn.forward_propagation(np.array([1,0])))
