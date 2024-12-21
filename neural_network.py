@@ -91,17 +91,18 @@ class Neural_network:
             raise Exception("input values has not equal length with expected values-->learn function")
         
         for epoch in range(epochs):
+            actual_values=[]
             for i in range(len(inputs)):
                 input_value=inputs[i].reshape(1, -1)
                 expected_value=expected[i].reshape(1, -1)
                 self.forward_propagation(input_value)
+                actual_values.append(self.network_output)
                 self.backward_propagation(expected_value,learning_rate)
 
             if epoch % 1000 == 0:
                 total_loss = np.mean(
                     np.square(
-                        outputs - np.array(
-                            [nn.forward_propagation(inputs[i].reshape(1, -1)) for i in range(len(inputs))]).squeeze()))
+                        expected - np.array(actual_values).squeeze()))
                 print(f"Epoch {epoch}, Loss: {total_loss}")
 
     def backward_propagation(self,expected_value,learning_rate):
