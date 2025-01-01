@@ -5,10 +5,8 @@ from initializer import select_initializer
 from optimizer import select_optimizer
 
 class Dense(Layer):
-    layer_shape=None #number of neurons of current Dense layer
-    prev_layer_shape=None #number of input for layer => number of output for previous layer
-    activation=None
-    activation_derivative=None
+    
+
     weight_matrix=None
     bias=None
 

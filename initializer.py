@@ -12,3 +12,6 @@ def select_initializer(initializer="random"):
         return xavier
     else:
         return random
+
+def xavier_for_conv(*dims):
+    print(*dims)
